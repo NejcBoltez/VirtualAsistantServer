@@ -8,10 +8,6 @@ app = Flask(__name__)
 @app.route('/', methods=['GET'])
 def welcome():
     if request.method == 'GET':
-        ai = AI()
-        ai.jarvis("date")
-        # Poskusimo naložiti v json obliki
-        print(ai.response)
         return 'WELCOME'# ...
     
 @app.route('/sendCommand', methods=['POST'])
@@ -21,7 +17,7 @@ def postjson():
         command = request.args.get("command")
         ai.jarvis(command)
         # Poskusimo naložiti v json obliki
-        data = {"answer":ai.response}
+        data = {"command":command,"answer":ai.response}
         print(data)
         return data# ...
     except Exception as e:

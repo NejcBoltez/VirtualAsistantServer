@@ -302,7 +302,7 @@ class AI():
                             continue
                     izpis = "Today it is "+d+", "+m+" "+dane
                     print (izpis)
-                    #self.saveResponse(izpis)
+                    self.saveResponse(izpis)
                 elif esa == "time":
                     t = time.asctime()
                     ti = t.split(" ")
