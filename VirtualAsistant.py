@@ -34,6 +34,14 @@ class AI():
         self.zac()'''
     def saveResponse(self,response):
         self.response = response;
+        BASE_DIR= os.path.dirname(os.path.abspath(__file__))
+        file_to_open=os.path.join(BASE_DIR, "allCommands.txt")
+        allCommands = ""
+        with open(file_to_open,"r") as f_w:
+            allCommands = f_w.read()
+        with open(file_to_open,"w") as f_w:
+            print(str(allCommands) + str(self.question) + ";")
+            f_w.write(str(allCommands) + str(self.question) + ";")
     '''def govor(self,besedilo):
         speech_engine.say(besedilo)
         speech_engine.runAndWait()
@@ -248,6 +256,7 @@ class AI():
     def jarvis(self,resp2):
         #while True:
             lis = ("Hello", "hello", "Wikipedia", "Google", "day", "hate", "of", "do not", "don't", "thanks", "map","maps", "search", "facebook", "new", "document", "folder", "alarm", "good", "how", "identify", "identified", "thank", "shutdown", "on", "lights", "living", "room", "my", "reminders", "reminder", "for", "music", "flip", "coin", "off", "shut", "up", "don't", "jokes", "email", "note", "problem", "bye", "time","calendar","morning","web","Alexa", "date", "YouTube", "question", "are", "smart", "stupid", "getting", "smarter", "name", "doing")
+            self.question = resp2
             self.response = ""
             #resp2 = #self.posluh()
             print (resp2)
@@ -281,8 +290,8 @@ class AI():
                     z+=1
                 elif esa == "don't":
                     z+=1
-                elif esa == "Alexa":
-                    h = random.choice(("Hello I am Alexa. I am waiting for your command", "Hy sir. What should I do for you"))
+                elif esa == "James":
+                    h = random.choice(("Hello I am James. I am waiting for your command", "Hy sir. What should I do for you"))
                     #self.saveResponse(h)
                 elif esa == "date" or esa == "day":
                     a = time.asctime()
