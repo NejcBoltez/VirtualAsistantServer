@@ -1,37 +1,17 @@
 import random
 import time
 import os
-import datetime
-import calendar
-import subprocess
 import webbrowser
-#import wolframalpha
+import wolframalpha
 import wikipedia
-import pyttsx3 as pyttsx
-import speech_recognition as sr
-import tkinter
 import urllib.parse as urllib
-import json
-from tkinter import *
-#import smartmirror
-#import reminders
-#import muzika
-#import koledar
-#from gtts import gTTS
+
 new = 2
 ukaz = [""]
 izgovorjeno=[""]
-speech_engine = pyttsx.init()
 
 class AI():
-
-    """docstring for ."""
-    #def __init__(self, arg):
-        #super(, self).__init__()
-
-    #konstruktor
-    '''def __init__(self):
-        self.zac()'''
+    
     def saveResponse(self,response):
         self.response = response;
         BASE_DIR= os.path.dirname(os.path.abspath(__file__))
@@ -42,70 +22,6 @@ class AI():
         with open(file_to_open,"w") as f_w:
             print(str(allCommands) + str(self.question) + ";")
             f_w.write(str(allCommands) + str(self.question) + ";")
-    '''def govor(self,besedilo):
-        speech_engine.say(besedilo)
-        speech_engine.runAndWait()
-        #tts = gTTS(text=besedilo, lang='en')
-        #tts.save("good.mp3")
-        #os.system("good.mp3")
-    def posluh(self):
-        poslusa = 0
-        while poslusa < 1:
-            razgovor = ""
-            go = sr.Recognizer()
-            while True:
-                with sr.Microphone() as source:
-                    print("Say something!")
-                    audio = go.listen(source)
-                    print(audio)
-                    if go == "":
-                        continue
-                    else:
-                        print('Hey')
-                        break
-            try:
-                print("You said: " + go.recognize_google(audio))
-                razgovor += go.recognize_google(audio)
-                print (razgovor)
-                razd = razgovor.split(" ")
-            except:
-                print("I didn't hear nothing.")
-                continue
-        return razgovor
-    def start(self):
-        poslusa = 0
-        while poslusa < 1:
-            razgovor = ""
-            go = sr.Recognizer()
-            while True:
-                with sr.Microphone() as source:
-                    print("Say something!")
-                    audio = go.listen(source)
-                    if go == "":
-                        continue
-                    else:
-                        break
-            try:
-                print("You said: " + go.recognize_google(audio))
-                razgovor += go.recognize_google(audio)
-                print (razgovor)
-                razd = razgovor.split(" ")
-                for t in razd:
-                    if t == "computer":
-                        #poja =+1
-                        poslusa =+ 1
-                        self.zac()
-                    elif t == "morning":
-                        mor= "Good morning sir."
-                        self.saveResponse(mor)
-                        poslusa =+1
-                        self.zac()
-                    else:
-                        continue
-            except:
-                continue'''
-    #def glasba(self):
-    #    muzika.okn()
     def datoteka(self):
         a = "How shuld I named the document"
         '''self.saveResponse(a)
@@ -135,7 +51,6 @@ class AI():
                     mi+= "saturday"
                 if mes == "sun":
                     mi+= "sunday"
-        #print mi
         return mi
     def mesec(self,ted):
         me = ""
@@ -210,7 +125,6 @@ class AI():
             vn = input("What is your question: ")
             if vn == "":
                 vn = input("What is your question: ")
-            #else:
                 self.saveResponse(vn)
             data = "Accesing the data. Please wait."
             self.saveResponse(data)
@@ -225,7 +139,6 @@ class AI():
                 elif  y == "thank" or y == "thanks":
                     tha="You are welcome."
                     self.saveResponse(tha)
-                    #self.start()
                 elif y == "question":
                     h = 0
                 else :
@@ -247,18 +160,10 @@ class AI():
             odgovor = wikipedia.summary(vpras, sentences = 2)
             self.saveResponse(odgovor)
             print (odgovor)
-    def zac(self):
-        GE = "Hello sir"
-        self.saveResponse(GE)
-        #print GE
-        #smartmirror.zacni()
-        self.jarvis()
-    def jarvis(self,resp2):
-        #while True:
+    def james(self,resp2):
             lis = ("Hello", "hello", "Wikipedia", "Google", "day", "hate", "of", "do not", "don't", "thanks", "map","maps", "search", "facebook", "new", "document", "folder", "alarm", "good", "how", "identify", "identified", "thank", "shutdown", "on", "lights", "living", "room", "my", "reminders", "reminder", "for", "music", "flip", "coin", "off", "shut", "up", "don't", "jokes", "email", "note", "problem", "bye", "time","calendar","morning","web","Alexa", "date", "YouTube", "question", "are", "smart", "stupid", "getting", "smarter", "name", "doing")
             self.question = resp2
             self.response = ""
-            #resp2 = #self.posluh()
             print (resp2)
             izgovorjeno.append(resp2)
             male = resp2.lower()
@@ -271,11 +176,7 @@ class AI():
                     if word == x:
                         vneseno.append(x)
                         besedilo += x + " "
-            print (vneseno)
-            print (vnos)
-            print (besedilo)
             ukaz.append(besedilo)
-            print (ukaz)
 
             for z in range(0,len(vneseno)):
                 esa = vneseno[z]
@@ -285,14 +186,16 @@ class AI():
                     self.saveResponse(b)
                 elif esa == "hello" or esa == "Hello":
                     he = "Hello to you too"
-                    #self.saveResponse(he)
+                    self.saveResponse(he)
                 elif esa == "do not":
-                    z+=1
+                    #z+=1
+                    continue
                 elif esa == "don't":
-                    z+=1
+                    #z+=1
+                    continue
                 elif esa == "James":
                     h = random.choice(("Hello I am James. I am waiting for your command", "Hy sir. What should I do for you"))
-                    #self.saveResponse(h)
+                    self.saveResponse(h)
                 elif esa == "date" or esa == "day":
                     a = time.asctime()
                     c = a.lower()
@@ -317,7 +220,6 @@ class AI():
                     ti = t.split(" ")
                     tim = ti[3]
                     cur = tim.split(":")
-                        #self.self.saveResponse(tim)
                     q = ""
                     k = ""
                     h = ""
@@ -340,16 +242,12 @@ class AI():
                         k = self.deset(f)
                         f = k
                     g= "Current time is "+h+" and "+f+" minutes"
-                    '''print tim
-                    print cur
-                    print t
-                    print g'''
                     self.saveResponse(g)
                 elif esa == "question":
                     self.quest()
                 elif esa == "morning":
                     g = "Good morning, Nejc. Have a wonderful day."
-                    #self.saveResponse(g)
+                    self.saveResponse(g)
                     print (g)
                 elif esa == "YouTube":
                     speak = "Opening youtube"
@@ -361,8 +259,6 @@ class AI():
                     #self.saveResponse(speak)
                     url = "https://www.facebook.com/"
                     webbrowser.open(url, new=new)
-                #elif esa == "calendar":
-                #    koledar.cale()
                 elif esa == "jokes":
                     c = random.choice(("I do not know any joke", "Knock Knock"))
                     print (c)
@@ -379,15 +275,10 @@ class AI():
                     webbrowser.open(url, new=new)
                 elif esa == "bye":
                     m = random.choice(("Goodbye", "See you later sir"))
-                    print (m)
                     self.saveResponse(m)
-                    #self.start()
                 elif esa == "alarm":
                     ala = "On what time should I set an alarm."
                     self.saveResponse(ala)
-                    #al = self.posluh()
-                    alar = str(al)
-                    print (alar)
                 elif esa == "good":
                     dobr = "That is very nice to hear. Should I do anything else for you?"
                     self.saveResponse(dobr)
@@ -395,7 +286,6 @@ class AI():
                 elif esa == "shutdown":
                     shut = "Shutting down ..."
                     self.saveResponse(shut)
-                    #self.start()
 
             if besedilo == "are smart ":
                 smartass = "Thank you sir."
@@ -410,7 +300,7 @@ class AI():
                 sma = "I learn of my mistakes, sir."
                 self.saveResponse(sma)
             elif besedilo == "name ":
-                name = "My name is Jayne"
+                name = "My name is James"
                 self.saveResponse(name)
             elif besedilo == "search Google for ":
                 t=0
@@ -464,7 +354,7 @@ class AI():
             elif besedilo == "music ":
                 a = "playing music"
                 self.saveResponse(a)
-                os.system("start C:/Users/nejcb/Desktop/seznam.xspf")
+                #os.system("start C:/Users/nejcb/Desktop/seznam.xspf")
             elif besedilo == "new file ":
                 self.datoteka()
             elif besedilo == "new document ":
@@ -504,5 +394,4 @@ class AI():
             elif besedilo == "thank " or besedilo == "thanks ":
                 izgovor="You are welcome"
                 self.saveResponse(izgovor)
-                #self.start()
 #AI()
