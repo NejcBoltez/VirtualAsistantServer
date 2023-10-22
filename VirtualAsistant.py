@@ -2,7 +2,7 @@ import random
 import time
 import os
 import webbrowser
-import wolframalpha
+#import wolframalpha
 import wikipedia
 import urllib.parse as urllib
 
@@ -32,84 +32,10 @@ class AI():
         novdoc = gTTS(text=vno, lang='en')
         imedat = ime + ".txt"
         novdoc.save(imedat)'''
-    def teden(self,mes):
-        teden=("mon", "tue", "wed", "thu", "fri", "sat", "sun")
-        mi = ""
-        for wor in teden:
-            if wor == mes:
-                if mes == "mon":
-                    mi+="monday"
-                if mes == "tue":
-                    mi+="tuesday"
-                if mes == "wed":
-                    mi+= "wednesday"
-                if mes == "thu":
-                    mi+= "thursday"
-                if mes == "fri":
-                    mi+= "friday"
-                if mes == "sat":
-                    mi+= "saturday"
-                if mes == "sun":
-                    mi+= "sunday"
-        return mi
-    def mesec(self,ted):
-        me = ""
-        mesec=("jan", "feb", "mar", "apr", "may", "jun", "jul", "avg", "sep", "oct", "nov", "dec")
-        for bese in mesec:
-            if bese == ted:
-                if ted == "jan":
-                    me+= "january"
-                if ted == "feb":
-                    me+= "february"
-                if ted == "mar":
-                    me+= "march"
-                if ted == "apr":
-                    me+= "april"
-                if ted == "may":
-                    me+= "may"
-                if ted == "jun":
-                    me+= "june"
-                if ted == "jul":
-                    me+= "july"
-                if ted == "avg":
-                    me+= "avgust"
-                if ted == "sep":
-                    me+= "september"
-                if ted == "oct":
-                    me+= "october"
-                if ted == "nov":
-                    me+= "november"
-                if ted == "dec":
-                    me+= "december"
-        return me
-    def deset(self,ste):
-        des = ""
-        if ste == "00":
-            des+= "0"
-        elif ste == "01":
-            des+= "1"
-        elif ste == "02":
-            des+= "2"
-        elif ste == "03":
-            des+= "3"
-        elif ste == "04":
-            des+= "4"
-        elif ste == "05":
-            des+= "5"
-        elif ste == "06":
-            des+= "6"
-        elif ste == "07":
-            des+= "7"
-        elif ste == "08":
-            des+= "8"
-        elif ste == "09":
-            des+= "9"
-        return des
-    def wiki(self,elf):
-        wi = elf.split(" ")
-        for i in wi:
-            print (i)
-        return elf
+    def searchWiki(self,vpras):
+        odgovor = wikipedia.summary(vpras, sentences = 2)
+        self.saveResponse(odgovor)
+        print (odgovor)
     def quest(self):
         vprasanja= [' ']
         que = 0
@@ -161,7 +87,7 @@ class AI():
             self.saveResponse(odgovor)
             print (odgovor)
     def james(self,resp2):
-            lis = ("Hello", "hello", "Wikipedia", "Google", "day", "hate", "of", "do not", "don't", "thanks", "map","maps", "search", "facebook", "new", "document", "folder", "alarm", "good", "how", "identify", "identified", "thank", "shutdown", "on", "lights", "living", "room", "my", "reminders", "reminder", "for", "music", "flip", "coin", "off", "shut", "up", "don't", "jokes", "email", "note", "problem", "bye", "time","calendar","morning","web","Alexa", "date", "YouTube", "question", "are", "smart", "stupid", "getting", "smarter", "name", "doing")
+            lis = ("Hello", "hello", "Wikipedia", "Google", "day", "hate", "of", "do not", "don't", "thanks", "map","maps", "search", "facebook", "new", "document", "folder", "alarm", "good", "how", "identify", "identified", "thank", "shutdown", "on", "lights", "living", "room", "my", "reminders", "reminder", "for", "music", "flip", "coin", "off", "shut", "up", "don't", "jokes", "email", "note", "problem", "bye", "time","calendar","morning","web","Alexa", "date", "YouTube", "question", "are", "smart", "stupid", "getting", "smarter", "name", "doing","who", "what", "where","who's", "what's", "where's")
             self.question = resp2
             self.response = ""
             print (resp2)
@@ -197,51 +123,15 @@ class AI():
                     h = random.choice(("Hello I am James. I am waiting for your command", "Hy sir. What should I do for you"))
                     self.saveResponse(h)
                 elif esa == "date" or esa == "day":
-                    a = time.asctime()
-                    c = a.lower()
-                    b = c.split(" ")
-                    d = ""
-                    m = ""
-                    dane= b[2]
-                    datum = [" "]
-                    for bes in b:
-                        #print bes
-                        if bes == b[0]:
-                            d+= self.teden(bes)
-                        elif bes == b[1]:
-                            m+= self.mesec(bes)
-                        else:
-                            continue
-                    izpis = "Today it is "+d+", "+m+" "+dane
+                    date = time.strftime("%A, %B %d %Y ")
+                    izpis = "Today it is "+date
                     print (izpis)
                     self.saveResponse(izpis)
                 elif esa == "time":
-                    t = time.asctime()
-                    ti = t.split(" ")
-                    tim = ti[3]
-                    cur = tim.split(":")
-                    q = ""
-                    k = ""
-                    h = ""
-                    f = ""
-                    s = 0
-                    st = 0
-                    for l in tim:
-                        if l == ":":
-                            st+= 1
-                        elif st == 2:
-                            break
-                        elif st == 0:
-                            h+= l
-                        elif st == 1:
-                            f+= l
-                    if int(h) < 10:
-                        q = self.deset(h)
-                        h = q
-                    elif int(f) < 10:
-                        k = self.deset(f)
-                        f = k
-                    g= "Current time is "+h+" and "+f+" minutes"
+                    h = str(int(time.strftime("%H")))
+                    m = str(int(time.strftime("%M")))
+                    s = str(int(time.strftime("%S")))
+                    g= "Current time is " + m + " past " + h + " and " + s + " seconds"
                     self.saveResponse(g)
                 elif esa == "question":
                     self.quest()
@@ -286,7 +176,17 @@ class AI():
                 elif esa == "shutdown":
                     shut = "Shutting down ..."
                     self.saveResponse(shut)
-
+                elif esa in ("who", "what", "where"):
+                    q= ""
+                    findQuestion=False
+                    for m in vnos:
+                        if (findQuestion):
+                            q += m
+                        if (m == "is"):
+                            findQuestion = True
+                        if (m in ("who's", "what's", "where's")):
+                            findQuestion = True
+                    self.searchWiki(q)
             if besedilo == "are smart ":
                 smartass = "Thank you sir."
                 self.saveResponse(smartass)
